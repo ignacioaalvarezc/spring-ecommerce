@@ -23,7 +23,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "products")
+@Table(name = "product")
 public class Product {
 
     @Id
@@ -32,7 +32,7 @@ public class Product {
     private String name;
     private String description;
     private String image;
-    private double price;
+    private Integer price;
     private Integer amount;
 
     @ManyToOne

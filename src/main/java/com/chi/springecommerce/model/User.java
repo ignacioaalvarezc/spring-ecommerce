@@ -18,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 public class User {
 
     @Id
@@ -37,4 +37,9 @@ public class User {
     private List<Product> products;
     @OneToMany(mappedBy = "user")
     private List<Order> orders;
+
+    public User(int id, String username, String email,
+                String password, String name, String lastname,
+                String address, String phoneNumber, String type) {
+    }
 }
