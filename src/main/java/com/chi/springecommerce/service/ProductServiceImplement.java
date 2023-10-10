@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 // IMPORTS OF JAVA.UTIL
 import java.util.Optional;
+import java.util.List;
 
 @Service
 public class ProductServiceImplement implements ProductService {
@@ -27,6 +28,11 @@ public class ProductServiceImplement implements ProductService {
     @Override
     public Optional<Product> get(Integer id) {
         return productRepository.findById(id);
+    }
+
+    @Override
+    public List<Product> findAll() {
+        return productRepository.findAll();
     }
 
     // UPDATE METHOD
