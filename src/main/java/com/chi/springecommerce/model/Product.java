@@ -2,12 +2,7 @@
 package com.chi.springecommerce.model;
 
 // IMPORTS JAKARTA PERSISTENCE
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 
 //IMPORTS LOMBOK
@@ -17,6 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 // IMPORTS JAVA.UTIL
+import java.util.Arrays;
 import java.util.List;
 
 @Getter @Setter
@@ -28,25 +24,27 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     private String name;
     private String description;
-    private String image;
-    private Integer price;
     private Integer amount;
+    private Integer price;
+    private String image;
 
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Override
     public String toString() {
         return "Product{" +
-                "id='" + id +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", image='" + image + '\'' +
-                ", price=" + price +
                 ", amount=" + amount +
+                ", price=" + price +
+                ", image='" + image + '\'' +
+                ", user=" + user +
                 '}';
     }
 }

@@ -28,9 +28,9 @@ public class User {
     private String email;
     private String password;
     private String name;
-    private String lastName;
+    private String last_name;
     private String address;
-    private String phoneNumber;
+    private String phone_number;
     private String type;
 
     @OneToMany(mappedBy = "user")
@@ -39,7 +39,7 @@ public class User {
     private List<Order> orders;
 
     public User(int id, String username, String email,
-                String password, String name, String lastname,
-                String address, String phoneNumber, String type) {
+                String password, String name, String last_name,
+                String address, String phone_number, String type) {
     }
 }

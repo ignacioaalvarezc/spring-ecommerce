@@ -26,7 +26,7 @@ public class ProductServiceImplement implements ProductService {
 
     // LIST METHOD
     @Override
-    public Optional<Product> get(Integer id) {
+    public Optional<Product> get(Long id) {
         return productRepository.findById(id);
     }
 
@@ -43,7 +43,7 @@ public class ProductServiceImplement implements ProductService {
 
     // DELETE METHOD
     @Override
-    public void delete(Integer id) {
+    public void delete(Long id) {
         productRepository.deleteById(id);
     }
 }
