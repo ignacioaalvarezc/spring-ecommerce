@@ -9,8 +9,8 @@ public interface ProductService {
     
     public Product save(Product product);
 
-    public Optional<Product> get(Long id);
+    public Optional<Product> get(Integer id);
     public void update(Product product);
-    public void delete(Long id);
+    public void delete(Integer id);
     public List<Product> findAll();
 }

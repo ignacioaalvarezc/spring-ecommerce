@@ -63,7 +63,7 @@ public class ProductController {
     }
 
     @GetMapping("/edit/{id}")
-    public String edit(@PathVariable Long id, Model model) {
+    public String edit(@PathVariable Integer id, Model model) {
         Product product = new Product();
         Optional<Product> optionalProduct=productService.get(id);
         product = optionalProduct.get();
@@ -91,7 +91,7 @@ public class ProductController {
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable Long id) {
+    public String delete(@PathVariable Integer id) {
         Product p = new Product();
         p = productService.get(id).get();
         if (p.getImage(). equals("default.jpg")) {
