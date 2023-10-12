@@ -32,19 +32,11 @@ public class Product {
     private String image;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
     private User user;
 
     @Override
     public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", amount=" + amount +
-                ", price=" + price +
-                ", image='" + image + '\'' +
-                ", user=" + user +
-                '}';
+        return "Product [id=" + id + ", name=" + name + ", description=" + description + ", image=" + image
+                + ", price=" + price + ", amount=" + amount + "]";
     }
 }

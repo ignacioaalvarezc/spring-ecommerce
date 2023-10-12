@@ -1,5 +1,7 @@
 package com.chi.springecommerce.controller;
 
+import com.chi.springecommerce.model.Order;
+import com.chi.springecommerce.model.OrderDetail;
 import com.chi.springecommerce.model.Product;
 import com.chi.springecommerce.service.ProductService;
 import org.slf4j.Logger;
@@ -7,11 +9,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -22,6 +23,9 @@ public class HomeController {
 
     @Autowired
     private ProductService productService;
+
+    List<OrderDetail> details = new ArrayList<OrderDetail>();
+    Order order = new Order();
 
     @GetMapping("")
     public String home(Model model) {
@@ -34,14 +38,33 @@ public class HomeController {
                        Model model) {
         log.info("Id producto enviado como paramtero {}", id);
         Product product = new Product();
-        Optional<Product> productOptional = productService.get(id);
-        product = productOptional.get();
+        Optional<Product> optionalProduct = productService.get(id);
+        product = optionalProduct.get();
         model.addAttribute("product", product);
         return "user/shop";
     }
 
     @PostMapping("/cart")
-    public String addCart() {
+    public String addCart(@RequestParam Integer id,
+                          @RequestParam Integer amount,
+                          Model model) {
+        OrderDetail orderDetail = new OrderDetail();
+        Product product = new Product();
+        double totalAmount = 0;
+        Optional<Product> optionalProduct = productService.get(id);
+        log.info("Producto añadido: {}", optionalProduct.get());
+        log.info("Cantidad: {}", amount);
+        product = optionalProduct.get();
+        orderDetail.setAmount(amount);
+        orderDetail.setPrice(product.getPrice());
+        orderDetail.setName(product.getName());
+        orderDetail.setTotal(product.getPrice()*amount);
+        orderDetail.setProduct(product);
+        details.add(orderDetail);
+        totalAmount = details.stream().mapToDouble(dt->dt.getTotal()).sum();
+        order.setTotal((totalAmount));
+        model.addAttribute("cart", details);
+        model.addAttribute("order", order);
         return "user/cart";
     }
 }
