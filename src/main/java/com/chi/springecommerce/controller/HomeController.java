@@ -101,7 +101,9 @@ public class HomeController {
     }
 
     @GetMapping("/order")
-    public String order() {
+    public String order(Model model) {
+        model.addAttribute("cart", details);
+        model.addAttribute("order", order);
         return "user/resume_order";
     }
 }
