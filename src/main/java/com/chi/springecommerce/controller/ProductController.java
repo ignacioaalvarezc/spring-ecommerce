@@ -7,8 +7,6 @@ import com.chi.springecommerce.service.UploadFileService;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -47,12 +45,14 @@ public class ProductController {
     }
 
     @PostMapping("/save")
-    public String save(Product product, @RequestParam("image") MultipartFile file) throws IOException {
+    public String save(Product product,
+                       @RequestParam("image") MultipartFile file,
+                       Model model) throws IOException {
         LOGGER.info("Este es el objeto producto {}",product);
         User user = new User(1, "", "", "", "", "", "", "", "");
         product.setUser(user);
         //  IMAGEN
-        if (product.getId()==null) { // CUANDO SE CREA UN PRODUCTO
+        if (product.getId()==null) {
             String nameImage = upload.saveImage(file);
             product.setImage(nameImage);
         } else {
@@ -100,4 +100,6 @@ public class ProductController {
         productService.delete(id);
         return "redirect:/product";
     }
+
+
 }
