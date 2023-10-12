@@ -3,7 +3,9 @@ package com.chi.springecommerce.controller;
 import com.chi.springecommerce.model.Order;
 import com.chi.springecommerce.model.OrderDetail;
 import com.chi.springecommerce.model.Product;
+import com.chi.springecommerce.model.User;
 import com.chi.springecommerce.service.ProductService;
+import com.chi.springecommerce.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class HomeController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private UserService userService;
 
     List<OrderDetail> details = new ArrayList<OrderDetail>();
     Order order = new Order();
@@ -102,8 +107,10 @@ public class HomeController {
 
     @GetMapping("/order")
     public String order(Model model) {
+        User user = userService.findById(1).get();
         model.addAttribute("cart", details);
         model.addAttribute("order", order);
+        model.addAttribute("user", user);
         return "user/resume_order";
     }
 }

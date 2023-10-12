@@ -39,9 +39,9 @@
               <h5 class="card-title">
                 DATOS DEL USUARIO
               </h5>
-              <h6>Nombre: </h6>
-              <h6 >Correo: </h6>
-              <h6 >Dirección</h6>
+              <h6 th:text=" 'Nombre:  ' + ${user.name} + ' ' + ${user.last_name}"></h6>
+              <h6 th:text=" 'Correo:  ' + ${user.email}">Correo: </h6>
+              <h6 th:text=" 'Dirección:  ' + ${user.address}">Dirección</h6>
 
               <div class="alert alert-light" role="alert">
                 <h5 class="card-title">RESUMEN DE LA ORDEN</h5>
