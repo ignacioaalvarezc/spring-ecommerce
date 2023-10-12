@@ -38,10 +38,15 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item"><a class="nav-link"
-                                    href="carrito.html">Carrito</a></li>
-            <li class="nav-item"><a class="nav-link"
-                                    href="login.html">Login</a></li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#"
+                 id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+                 aria-haspopup="true" aria-expanded="false"> USER </a>
+              <div class="dropdown-menu"
+                aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="#">Compras</a>
+                <a class="dropdown-item" th:href="@{/getCart}">Carrito</a>
+              </div></li>
           </ul>
         </div>
       </div>
@@ -53,7 +58,7 @@
   <div th:fragment="footer">
     <footer class="py-5 bg-dark">
       <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Spring eCommerce 2021</p>
+        <p class="m-0 text-center text-white">Copyright &copy; Spring eCommerce 2023</p>
       </div>
       <!-- /.container -->
     </footer>
