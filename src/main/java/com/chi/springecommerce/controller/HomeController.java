@@ -4,6 +4,8 @@ import com.chi.springecommerce.model.Order;
 import com.chi.springecommerce.model.OrderDetail;
 import com.chi.springecommerce.model.Product;
 import com.chi.springecommerce.model.User;
+import com.chi.springecommerce.service.OrderDetailService;
+import com.chi.springecommerce.service.OrderService;
 import com.chi.springecommerce.service.ProductService;
 import com.chi.springecommerce.service.UserService;
 import org.slf4j.Logger;
@@ -14,8 +16,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/")
@@ -28,6 +32,12 @@ public class HomeController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private OrderService orderService;
+
+    @Autowired
+    private OrderDetailService orderDetailService;
 
     List<OrderDetail> details = new ArrayList<OrderDetail>();
     Order order = new Order();
@@ -62,7 +72,7 @@ public class HomeController {
         product = optionalProduct.get();
         orderDetail.setAmount(amount);
         orderDetail.setPrice(product.getPrice());
-        orderDetail.setName(product.getName());
+        orderDetail.setProduct_name(product.getName());
         orderDetail.setTotal(product.getPrice()*amount);
         orderDetail.setProduct(product);
 
@@ -112,5 +122,37 @@ public class HomeController {
         model.addAttribute("order", order);
         model.addAttribute("user", user);
         return "user/resume_order";
+    }
+
+    // METHOD THAT SAVES THE ORDER
+    @GetMapping("/saveOrder")
+    public String saveOrder() {
+        Date creationDate = new Date();
+        order.setCreation_date(creationDate);
+        order.setNumber(orderService.generateOrderNumber());
+        // USER
+        User user = userService.findById(1).get();
+        order.setUser(user);
+        orderService.save(order);
+        // DETAILS
+        for (OrderDetail dt:details) {
+            dt.setOrder(order);
+            orderDetailService.save(dt);
+        }
+        // CLEAN VALUES
+        order = new Order();
+        details.clear();
+        return "redirect:/";
+    }
+
+    @PostMapping("/search")
+    public String searchProduct(@RequestParam String name,
+                                Model model) {
+        log.info("Nombre del producto: {}", name);
+        List<Product> product = productService.findAll().stream()
+                .filter(p -> p.getName().contains(name))
+                .collect(Collectors.toList());
+        model.addAttribute("product", product);
+        return "user/home";
     }
 }

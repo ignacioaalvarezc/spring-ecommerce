@@ -12,15 +12,15 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "order")
+@Table(name = "sale_order")
 public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String number;
-    private Date creationDate;
-    private Date receptionDate;
+    private Date creation_date;
+    private Date reception_date;
     private double total;
 
     // RELATIONS
@@ -34,8 +34,8 @@ public class Order {
         return "Order{" +
                 "id=" + id +
                 ", number='" + number + '\'' +
-                ", creationDate=" + creationDate +
-                ", receptionDate=" + receptionDate +
+                ", creationDate=" + creation_date +
+                ", receptionDate=" + reception_date +
                 '}';
     }
 }

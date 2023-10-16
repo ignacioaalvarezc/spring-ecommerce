@@ -2,6 +2,7 @@ package com.chi.springecommerce.service;
 
 import com.chi.springecommerce.model.Order;
 import com.chi.springecommerce.repository.OrderRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -9,7 +10,12 @@ import java.util.List;
 
 @Service
 public class OrderServiceImplement implements OrderService {
-    private OrderRepository orderRepository;
+    private final OrderRepository orderRepository;
+
+    @Autowired
+    public OrderServiceImplement(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
+    }
 
     @Override
     public List<Order> findAll() {

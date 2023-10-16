@@ -10,14 +10,14 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "detail")
+@Table(name = "order_detail")
 public class OrderDetail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String name;
-    private double amount;
+    private String product_name;
+    private int amount;
     private double price;
     private double total;
 
@@ -30,7 +30,7 @@ public class OrderDetail {
     public String toString() {
         return "OrderDetail{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", product_name='" + product_name + '\'' +
                 ", amount=" + amount +
                 ", price=" + price +
                 ", total=" + total +
