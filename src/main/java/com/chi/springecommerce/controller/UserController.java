@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -75,5 +76,17 @@ public class UserController {
         List<Order> orders = orderService.findByUser(user);
         model.addAttribute("orders", orders);
         return "user/shopping";
+    }
+
+    @GetMapping("/detail/{id}")
+    public String orderDetail(@PathVariable Integer id,
+                             HttpSession session,
+                             Model model) {
+        logger.info("Id de la orden: {}", id);
+        Optional<Order> order = orderService.findById(id);
+        model.addAttribute("details", order.get().getOrderDetail());
+        // SESSION
+        model.addAttribute("sesion", session.getAttribute("iduser"));
+        return "user/order_detail";
     }
 }
