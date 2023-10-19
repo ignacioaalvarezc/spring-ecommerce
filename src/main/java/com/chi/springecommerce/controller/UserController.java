@@ -1,6 +1,8 @@
 package com.chi.springecommerce.controller;
 
+import com.chi.springecommerce.model.Order;
 import com.chi.springecommerce.model.User;
+import com.chi.springecommerce.service.OrderService;
 import com.chi.springecommerce.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
@@ -11,7 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
 import java.util.Optional;
+import org.springframework.ui.Model;
 
 
 @Controller
@@ -22,6 +26,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private OrderService orderService;
 
     @GetMapping("/sign_up")
     public String create() {
@@ -58,5 +65,15 @@ public class UserController {
             logger.info("Usuario no registrado");
         }
         return "redirect:/";
+    }
+
+    @GetMapping("/shopping")
+    public String getShopping(Model model,
+                              HttpSession session) {
+        model.addAttribute("sesion", session.getAttribute("iduser"));
+        User user = userService.findById(Integer.parseInt(session.getAttribute("iduser").toString())).get();
+        List<Order> orders = orderService.findByUser(user);
+        model.addAttribute("orders", orders);
+        return "user/shopping";
     }
 }

@@ -1,6 +1,7 @@
 package com.chi.springecommerce.service;
 
 import com.chi.springecommerce.model.Order;
+import com.chi.springecommerce.model.User;
 import com.chi.springecommerce.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,5 +60,10 @@ public class OrderServiceImplement implements OrderService {
     @Override
     public Order save(Order order) {
         return orderRepository.save(order);
+    }
+
+    @Override
+    public List<Order> findByUser(User user) {
+        return orderRepository.findByUser(user);
     }
 }

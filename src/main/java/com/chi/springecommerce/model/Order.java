@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter @Setter
 @NoArgsConstructor
@@ -26,8 +27,8 @@ public class Order {
     // RELATIONS
     @ManyToOne
     private User user;
-    @OneToOne(mappedBy = "order")
-    private OrderDetail orderDetail;
+    @OneToMany(mappedBy = "order")
+    private List<OrderDetail> orderDetail;
 
     @Override
     public String toString() {
