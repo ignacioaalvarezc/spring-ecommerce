@@ -40,6 +40,7 @@ public class UserController {
     public String save(User user) {
         logger.info("Usuario registro: {}", user);
         user.setType("USER");
+       // user.setPassword(passEncode.encode(user.getPassword()));
         userService.save(user);
         return "redirect:/";
     }
